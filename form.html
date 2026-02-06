@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>On-site Enquiries Form</title>
+    <link rel="stylesheet" href="form.css">
+   
+</head>
+<body>
+
+    <div class="container">
+        <h1>On-site Enquiries Form</h1>
+
+        <form id="form">
+            <label>Name</label>
+            <input type="text" id="name" placeholder="John Doe">
+            <span id="nameError" class="error"></span>
+
+            <label>Email</label>
+            <input type="text" id="email" placeholder="email@example.com">
+            <span id="emailError" class="error"></span>
+
+            <label>Where are you</label>
+            <input type="text" id="wry">
+
+            <div class="row">
+                <div>
+                    <label>City</label>
+                    <select id="city">
+                        <option value="">Select City</option>
+                        <option value="Vizag">Vizag</option>
+                        <option value="Chennai">Chennai</option>
+                        <option value="Hyderabad">Hyderabad</option>
+                    </select>
+                    <span id="cityError" class="error"></span>
+                </div>
+
+                <div>
+                    <label>Country</label>
+                    <select id="country">
+                        <option value="">Select Country</option>
+                        <option value="India">India</option>
+                        <option value="USA">USA</option>
+                        <option value="UK">UK</option>
+                    </select>
+                    <span id="countryError" class="error"></span>
+                </div>
+            </div>
+
+            <div class="btn-center">
+                <button type="submit" id="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById("form").addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            // Clear previous errors
+            const errors = ["nameError", "emailError", "cityError", "countryError"];
+            errors.forEach(id => document.getElementById(id).innerText = "");
+
+            let name = document.getElementById("name").value.trim();
+            let email = document.getElementById("email").value.trim();
+            let city = document.getElementById("city").value;
+            let country = document.getElementById("country").value;
+
+            let valid = true;
+
+            if (name === "") {
+                document.getElementById("nameError").innerText = "Enter full name";
+                valid = false;
+            }
+
+            // Simple Email Regex
+            const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+            if (!email.match(emailPattern)) {
+                document.getElementById("emailError").innerText = "Enter a valid email address";
+                valid = false;
+            }
+
+            if (city === "") {
+                document.getElementById("cityError").innerText = "Please select a city";
+                valid = false;
+            }
+
+            if (country === "") {
+                document.getElementById("countryError").innerText = "Please select a country";
+                valid = false;
+            }
+
+            if (valid) {
+                const submitBtn = document.getElementById("submit");
+                submitBtn.innerText = "Successfully Submitted";
+                submitBtn.disabled = true;
+                submitBtn.style.backgroundColor = "#4CAF50";
+                submitBtn.style.color = "white";
+            }
+        });
+    </script>
+</body>
+</html>
